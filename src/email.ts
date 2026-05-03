@@ -1,37 +1,29 @@
-// src/email.ts
-import { Resend } from 'resend';
-interface SendEmailParams {
-    apiKey: string;
-    to: string;
-    from: string;
-    subject: string;
-    text: string;
-}
+import { Resend } from "resend";
 
-export async function sendEmail({
-    apiKey,
-    to,
-    from,
-    subject,
-    text,
-}: SendEmailParams): Promise<void> {
-    const resend = new Resend(apiKey);
-    const { data, error } = await resend.emails.send({
-        from: 'contact@synergyuplink.com',
-        replyTo: from,
-        to: [to],
-        subject: subject,
-        text: text,
-    });
+type SendEmailParams = {
+	apiKey:   string;
+	to:       string;
+	from:     string;  // used as replyTo — the submitter's address
+	subject:  string;
+} & (
+	| { html: string; text?: never }
+	| { text: string; html?: never }
+);
 
-    if (error) {
-        console.error(
-            "Email send failed:",
-            error
-        );
+export async function sendEmail(params: SendEmailParams): Promise<void> {
+	const { apiKey, to, from, subject } = params;
+	const resend = new Resend(apiKey);
 
-        throw new Error(
-            `Resend API error: ${error.message}`
-        );
-    }
+	const { error } = await resend.emails.send({
+		from:    "contact@synergyuplink.com",  // verified sender
+		replyTo: from,                          // submitter's address — hit reply and it goes to them
+		to:      [to],
+		subject,
+		...(params.html ? { html: params.html } : { text: params.text }),
+	});
+
+	if (error) {
+		console.error("Email send failed:", error);
+		throw new Error(`Resend API error: ${error.message}`);
+	}
 }
