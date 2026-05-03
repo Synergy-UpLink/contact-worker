@@ -54,7 +54,7 @@ export default {
 		// Lookup config (hardcoded for now)
 		const config = {
 			"sul-main": {
-				email: "contact@synerguplink.com",
+				email: "contact@synergyuplink.com",
 				subjectPrefix: "Contact Form Submission: "
 			}
 		};
@@ -66,6 +66,7 @@ export default {
 
 		// Send email (pseudo — replace with real API call)
 		await sendEmail({
+		
 			apiKey: env.RESEND_API_KEY,
 			to: site.email,
 			from: body.email,

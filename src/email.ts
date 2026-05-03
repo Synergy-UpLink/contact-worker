@@ -17,10 +17,11 @@ export async function sendEmail({
 }: SendEmailParams): Promise<void> {
     const resend = new Resend(apiKey);
     const { data, error } = await resend.emails.send({
-        from: from,
+        from: 'contact@synergyuplink.com',
+        replyTo: from,
         to: [to],
         subject: subject,
-        html: 'text',
+        text: text,
     });
 
     if (error) {
