@@ -1,6 +1,6 @@
 import { sendEmail } from "./email";
 
-const ALLOWED_ORIGIN = "https://synergyuplink.com"; // change if your domain differs
+const ALLOWED_ORIGIN = "*"; // change if your domain differs
 
 const CORS_HEADERS = {
 	"Access-Control-Allow-Origin": ALLOWED_ORIGIN,
