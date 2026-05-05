@@ -46,6 +46,10 @@ const SITES: Record<string, SiteConfig> = {
 		name:  "Synergy UpLink",
 		email: "contact@synergyuplink.com",
 	},
+	"flomads-main": {
+		name:  "Flomads",
+		email: "newsletter@flomads.com",
+	}
 	// "client-slug": { name: "Client Name", email: "hello@client.com" },
 };
 
