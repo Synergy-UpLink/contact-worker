@@ -58,12 +58,13 @@ export default {
 		console.log("Origin:", origin);
 		const allowed = getAllowedOrigins(env);
 
-		// Reject unknown origins before doing anything else
+		const cors = corsHeaders(origin);
+
+		// Reject unknown origins before doing anything else, but include CORS headers in the response for clarity.
 		if (!allowed.has(origin)) {
-			return new Response("Forbidden", { status: 403 });
+			return new Response("Forbidden", { status: 403, headers: cors });
 		}
 
-		const cors = corsHeaders(origin);
 
 		// Preflight
 		if (request.method === "OPTIONS") {
