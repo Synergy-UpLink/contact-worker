@@ -55,6 +55,7 @@ const SITES: Record<string, SiteConfig> = {
 export default {
 	async fetch(request: Request, env: Env) {
 		const origin  = request.headers.get("Origin") ?? "";
+		console.log("Origin:", origin);
 		const allowed = getAllowedOrigins(env);
 
 		// Reject unknown origins before doing anything else
