@@ -16,7 +16,7 @@ import { sendEmail } from "./email";
 // a 403 before anything else runs.
 // ---------------------------------------------------------------------------
 function getAllowedOrigins(env: Env): Set<string> {
-	const raw = env.ALLOWED_ORIGINS ?? "*";
+	const raw = env.ALLOWED_ORIGINS ?? "";
 	return new Set(
 		raw.split(",").map((o: string) => o.trim()).filter(Boolean)
 	);
